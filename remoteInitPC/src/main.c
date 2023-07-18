@@ -1,9 +1,9 @@
-#include "main.h"
+#include "../inc/main.h"
 
 #define SEND_TIMEOUT 1000
 
 //function declarations
-sendDataAfterPing(const char* file, int fd, uint8_t buffer[MAX_PACKET_SIZE], size_t timeout_ms);
+int sendDataAfterPing(const char* file, int fd, uint8_t buffer[MAX_PACKET_SIZE], size_t timeout_ms);
 
 //waits for the ping from the board and then sends the code
 int main(void) {
@@ -49,7 +49,7 @@ int sendCode(const char* file, int fd)
     return ret;
 }
 
-sendDataAfterPing(const char* file, int fd, uint8_t buffer[MAX_PACKET_SIZE], size_t timeout_ms)
+int sendDataAfterPing(const char* file, int fd, uint8_t buffer[MAX_PACKET_SIZE], size_t timeout_ms)
 {
     int ret;
     int error_counter = 0;

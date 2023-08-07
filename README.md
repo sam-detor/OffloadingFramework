@@ -25,10 +25,10 @@ Please ensure that before you begin, your bluetooth module is paired with the PC
    * DEVICE_FILE --> Path to the device file of your bluetooth module connection on the PC (ex: for Mac it's `/dev/cu.MODULE_NAME`)
    * COMMS_TIMEOUT --> Timeout in ms for comms methods
 
-8. Add the following flags to your normal compile/link process: `-ffunction-sections -Wl,--gc-section -Wl,`
+8. Add the following flags to your normal compile/link process: `-ffunction-sections -Wl,--gc-section`
    This makes sure that methods that are not called will not appear in the final binary  
 
-9. Make the remoteInitBoard library by running `make remoteInitBoard`
+9. Make the remoteInitBoard library by running `make remoteInitBoard` in this dir
 
 10. Make your code normally (but don't forget the extra flags from step 7) and link the remoteInitBoard as you would any other static lib
 

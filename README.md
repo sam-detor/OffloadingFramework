@@ -4,15 +4,19 @@ Please ensure that before you begin, your bluetooth module is paired with the PC
 
 1. Put all your code that you would like to offload in a method called offloadedCode with the following method signature:
 
-                             `int __attribute__((section(".text.offloaded"))) offloadedCode(void)`
+                             int __attribute__((section(".text.offloaded"))) offloadedCode(void)
 
 3. Call the method `remoteInit` in place of where you would call `offloadedCode`. `remoteInit` takes two arguments (`USART_TypeDef* USARTx` and `volatile uint32_t* systick_ms`). `USARTx` should be a pointer to a properly initialized `USART_TypeDef` object and `systick_ms` should be a `uint32_t*` to a variable that is incremented every ms. The `USART_TypeDef` is defined in stm32f4xx.h.
 
 4. Call the method `remoteInitSVC` at the begining of your SVC_Handler method
 
-5. Declare the `offloadedCode`, `remoteInit`, and `remoteInitSVC` methods in the relevant places
+5. Declare the `offloadedCode`, `remoteInit`, and `remoteInitSVC` methods in the relevant places as follows:
 
-6. Fill in the following #defines in RemoteInit.h file (all of the following values are in bytes):
+       int offloadedCode(void);
+       int remoteInit(USART_TypeDef* USARTx, volatile uint32_t* systick_ms);
+       void remoteInitSVC(void);
+
+7. Fill in the following #defines in RemoteInit.h file (all of the following values are in bytes):
    * RAM_START --> The RAM start address on your board
    * RAM_SIZE --> The size of writeable RAM on your board
    * RAM_STACK_SIZE --> how large of a stack does your RAM code need
@@ -21,14 +25,14 @@ Please ensure that before you begin, your bluetooth module is paired with the PC
    * DEVICE_FILE --> Path to the device file of your bluetooth module connection on the PC (ex: for Mac it's `/dev/cu.MODULE_NAME`)
    * COMMS_TIMEOUT --> Timeout in ms for comms methods
 
-7. Add the following flags to your normal compile/link process: `-ffunction-sections -Wl,--gc-section -Wl,`
+8. Add the following flags to your normal compile/link process: `-ffunction-sections -Wl,--gc-section -Wl,`
    This makes sure that methods that are not called will not appear in the final binary  
 
-8. Make the remoteInitBoard library by running `make remoteInitBoard`
+9. Make the remoteInitBoard library by running `make remoteInitBoard`
 
-9. Make your code normally (but don't forget the extra flags from step 7) and link the remoteInitBoard as you would any other static lib
+10. Make your code normally (but don't forget the extra flags from step 7) and link the remoteInitBoard as you would any other static lib
 
-10. Run the spin_up_ld_script.py script in the Offloading folder as shown below, giving it a path to the elf file of your recently compiled code:
+11. Run the spin_up_ld_script.py script in the Offloading folder as shown below, giving it a path to the elf file of your recently compiled code:
          `python3 spin_up_ld_script.py <path-to-elf-file-of-compiled-code>`
    *note this script requires a library called "pyelftools", install if not already
 

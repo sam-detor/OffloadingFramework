@@ -49,4 +49,4 @@ if __name__ == "__main__":
 
     ELF_FILE_PATH = sys.argv[1]
     codeStart = get_ebss_value(ELF_FILE_PATH)
-    generate_linker_script("InitCode2.ld", hex(codeStart))
+    generate_linker_script("InitCode.ld", hex(codeStart))

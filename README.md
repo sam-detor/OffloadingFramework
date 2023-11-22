@@ -1,4 +1,4 @@
-# How to use the offloading framework v3 (Bluetooth edition):
+# How to use the offloading framework v4 (Bluetooth edition):
 
 Please ensure that before you begin, your bluetooth module is paired with the PC you are using for the offloading.
 

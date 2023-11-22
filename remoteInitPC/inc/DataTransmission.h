@@ -27,9 +27,9 @@
  *                specifics. 
  *      
  *      Command: This byte is used to tell whether the packet is a communication packet or
- *               a data packet. 0 indicates a data packet, where all other values of Cmd 
- *               indicate a communication packet. Comunication packets have a data payload 
- *               of 0 and they are used by the sender and receiver to communicate. The 
+ *               a data packet. 5 and 6 indicate even and odd data packets (to prevent data duplication), 
+ *               where all other values of Cmd indicate a communication packet. Comunication packets 
+ *               have a data payload of 0 and they are used by the sender and receiver to communicate. The 
  *               following communication packets are used in the codebase:
  *                  1 - Acknowlagement packet: This packet is sent by the receiver to the 
  *                                             sender after the sucessful sending of a packet. 
@@ -88,6 +88,8 @@
 #define BAD_PACKET 2
 #define END_PACKET 3
 #define START_PACKET 4
+#define ODD 5
+#define EVEN 6
 
 //Packet structs 
 
